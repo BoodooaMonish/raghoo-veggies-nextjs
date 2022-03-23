@@ -3,8 +3,10 @@ import { useRef } from "react";
 import styled, { css } from "styled-components";
 import Link from "next/link";
 import Logo from "../logos/Logo";
+import ArrowDown from "../logos/ArrowDown";
 import Hamburger from "../logos/Hamburger";
 import { NavLinkStyles } from "./Buttons";
+import Dropdown from "./Dropdown";
 
 // Styled Components - Start
 const MainNavigation = styled.nav`
@@ -311,18 +313,34 @@ export default function Navbar() {
                                 Cart
                             </NavLink>
                         </Link>
-                        <Link href="#" passHref>
-                            <NavLink
-                                data-index="5"
-                                ref={(element) => {
-                                    links.current[5] = element;
-                                }}
-                                secondary
-                            >
-                                Account
-                                <span aria-hidden="true">&#8744;</span>
-                            </NavLink>
-                        </Link>
+                        <Dropdown
+                            type="navbar"
+                            links={[
+                                { title: "Register", href: "#" },
+                                { title: "Login", href: "#" },
+                            ]}
+                            attr={{ id: "menu-account", "aria-labelledby": "menu-account-button" }}
+                        >
+                            <Link href="#" passHref>
+                                <NavLink
+                                    data-index="5"
+                                    ref={(element) => {
+                                        links.current[5] = element;
+                                    }}
+                                    secondary
+                                    dropdown
+                                    id="menu-account-button"
+                                    aria-haspopup="menu"
+                                    aria-expanded="false"
+                                    aria-controls="menu-account"
+                                >
+                                    Account
+                                    <span className="arrow" aria-hidden="true">
+                                        <ArrowDown />
+                                    </span>
+                                </NavLink>
+                            </Link>
+                        </Dropdown>
                     </div>
                 </div>
             </MainNavigation>
